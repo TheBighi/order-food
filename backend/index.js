@@ -2,6 +2,7 @@ const fs = require("fs/promises");
 const bodyParser = require("body-parser")
 const path = require("path");
 const express = require("express");
+const cors = require('cors')
 const { readFileSync } = require("fs");
 
 const app = express();
@@ -9,6 +10,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(express.static('public'));
+
+app.use(cors({ origin: 'https://curly-guacamole-x5x69vgg9gxhvvgw-3000.app.github.dev'}))
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
