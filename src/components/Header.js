@@ -4,7 +4,7 @@ import Button from './UI/Button'
 import { useContext } from 'react';
 import { CartContext } from '../store/CartContext';
 
-const Header = () => {
+const Header = (props) => {
     const { items } = useContext(CartContext);
 
     const totalCartItems = items.reduce((total, item) => {
@@ -12,6 +12,7 @@ const Header = () => {
     }, 0);
 
     console.log(useContext(CartContext))
+    
     return (
         <>
         <header id="main-header">
@@ -20,7 +21,7 @@ const Header = () => {
                 <h1>React Food Order App</h1>
             </div>
             <nav>
-            <Button textOnly={true}>Cart ({totalCartItems})</Button>
+            <Button textOnly={true} onClick={props.onOpenCart}>Cart ({totalCartItems})</Button>
             </nav>
         </header>
         </>
