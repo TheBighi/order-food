@@ -9,7 +9,7 @@ const MealItem = (props) => {
                 <img src={require(`../assets/${props.mealData.image}`)} alt={props.mealData.name}/>
                 <div>
                     <h3>{props.mealData.name}</h3>
-                    <p className='meal-item-price'>{props.mealData.price}</p>
+                    <p className='meal-item-price'>{new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(props.mealData.price)}</p>
                     <p className='meal-item-description'>{props.mealData.description}</p>
                 </div>
                 <p>
