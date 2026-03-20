@@ -1,18 +1,49 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();
 
+const initialCartState = { items: [] };
+
+const cartReducer = (state, action) => {
+    if (action.type === 'ADD_ITEM') {
+        const existingCartItemIndex = state.items.findIndex(
+            (item) => item.id === action.item.id
+        );
+
+        const updatedItems = [...state.items];
+
+        if (existingCartItemIndex > -1) {
+            const existingItem = state.items[existingCartItemIndex];
+            const updatedItem = {
+                ...existingItem,
+                quantity: existingItem.quantity + 1
+            };
+            updatedItems[existingCartItemIndex] = updatedItem;
+        } else {
+            updatedItems.push({ ...action.item, quantity: 1 });
+        }
+
+        return { ...state, items: updatedItems };
+    }
+
+    return state;
+};
+
+
 const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState([]);
+    const [cartState, dispatch] = useReducer(cartReducer, initialCartState);
 
-    console.log(cart)
+    const addItem = (item) => {
+        dispatch({ type: 'ADD_ITEM', item: item });
+    };
 
-    const addCart = (meal) => {
-        setCart([...cart, meal]);
+    const cartContextValue = {
+        items: cartState.items,
+        addItem: addItem,
     };
 
     return (
-        <CartContext.Provider value={{ cart, addCart }}>
+        <CartContext.Provider value={cartContextValue}>
             {children}
         </CartContext.Provider>
     );
