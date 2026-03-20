@@ -1,4 +1,5 @@
 import './MealItem.css'
+import Button from './UI/Button'
 
 const MealItem = (props) => {
     console.log('PROPS ARE HERE ')
@@ -13,7 +14,7 @@ const MealItem = (props) => {
                     <p className='meal-item-description'>{props.mealData.description}</p>
                 </div>
                 <p>
-                    <button className='meal-item-actions'>Add to Cart</button>
+                    <Button className='meal-item-actions'>Add to Cart</Button>
                 </p>
             </article>
         </li>
