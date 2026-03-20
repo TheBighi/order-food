@@ -2,30 +2,16 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Meals from "./components/Meals";
 import CartProvider from "./store/CartContext";
-import Modal from "./components/UI/Modal";
-import Button from './components/UI/Button'
+import Cart from "./components/Cart"; // ← use Cart, not Modal directly
 
 const App = () => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
-  const openCart = () => {
-    setCartIsOpen(true);
-  };
-
-  const closeCart = () => {
-    setCartIsOpen(false);
-  };
-
   return (
     <CartProvider>
-      <Header onOpenCart={openCart} />
-      
+      <Header onOpenCart={() => setCartIsOpen(true)} />
       <Meals />
-
-      <Modal open={cartIsOpen}>
-        <h2>Test</h2>
-        <Button onClick={closeCart}>Close</Button>
-      </Modal>
+      <Cart open={cartIsOpen} onClose={() => setCartIsOpen(false)} />
     </CartProvider>
   );
 }

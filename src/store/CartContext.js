@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();
@@ -26,6 +27,10 @@ const cartReducer = (state, action) => {
         return { ...state, items: updatedItems };
     }
 
+    if (action.type === 'CHECKOUT') {
+        return { ...state, items: [] };
+    }
+
     return state;
 };
 
@@ -37,9 +42,15 @@ const CartProvider = ({ children }) => {
         dispatch({ type: 'ADD_ITEM', item: item });
     };
 
+    const checkOut = () => {
+        dispatch({type: 'CHECKOUT'})
+    }
+    
+
     const cartContextValue = {
         items: cartState.items,
         addItem: addItem,
+        checkOut: checkOut,
     };
 
     return (

@@ -11,7 +11,7 @@ const Header = (props) => {
         return total + item.quantity;
     }, 0);
 
-    console.log(useContext(CartContext))
+    
     
     return (
         <>
