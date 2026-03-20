@@ -1,9 +1,15 @@
 import './MealItem.css'
 import Button from './UI/Button'
+import { useContext } from 'react';
+import { CartContext } from '../store/CartContext';
 
 const MealItem = (props) => {
-    console.log('PROPS ARE HERE ')
-    
+    const { addCart } = useContext(CartContext)
+
+    const handleAddToCart = () => {
+        addCart(props.mealData)
+    }
+
     return (
         <li className='meal-item'>
             <article >
@@ -14,7 +20,7 @@ const MealItem = (props) => {
                     <p className='meal-item-description'>{props.mealData.description}</p>
                 </div>
                 <p>
-                    <Button className='meal-item-actions'>Add to Cart</Button>
+                    <Button className='meal-item-actions' onClick={handleAddToCart}>Add to Cart</Button>
                 </p>
             </article>
         </li>
